@@ -1,8 +1,9 @@
 import discord as discord
 import random
 import time
+import brokerage.trade.app as trade
 
-TOKEN = 'ODQ3Nzc2NTk1Mjg0MzI4NDU5.YLC_ew.2Srd-jzOWWW72B2h9849Itsc5xY'
+TOKEN = ''
 
 client = discord.Client()
 
@@ -26,6 +27,11 @@ async def on_message(message):
         await message.channel.send(response)
     elif message.content == 'time!':
         response = time.time()
+        await message.channel.send(response)
+    elif message.content == 'balance':
+        trader = trade.Run()
+        trader.run()
+        response = trader.getterBalance()
         await message.channel.send(response)
 
 

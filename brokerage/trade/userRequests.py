@@ -1,5 +1,8 @@
-import authentication as auth
-import jsonHandler as jshand
+from brokerage.trade import authentication as auth
+from brokerage.trade import jsonHandler as jshand
+
+# import authentication as auth
+# import jsonHandler as jshand
 
 
 def getCustomerDetails(obj):
