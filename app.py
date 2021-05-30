@@ -1,6 +1,7 @@
 import discord as discord
 import random
 import time
+import asyncio
 import brokerage.trade.app as trade
 
 TOKEN = ''
@@ -29,9 +30,9 @@ async def on_message(message):
         response = time.time()
         await message.channel.send(response)
     elif message.content == 'balance':
-        trader = trade.Run()
-        trader.run()
-        response = trader.getterBalance()
+        #loop = asyncio.get_event_loop()
+        # response = loop.run_until_complete(await trade.run())
+        response = await trade.run()
         await message.channel.send(response)
 
 
