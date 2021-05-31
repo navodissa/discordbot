@@ -2,6 +2,7 @@ import discord as discord
 import random
 import time
 import asyncio
+import os
 import brokerage.trade.app as trade
 
 TOKEN = ''
@@ -29,11 +30,11 @@ async def on_message(message):
     elif message.content == 'time!':
         response = time.time()
         await message.channel.send(response)
-    elif message.content == 'balance':
+    elif message.content == 'balance!':
         #loop = asyncio.get_event_loop()
         # response = loop.run_until_complete(await trade.run())
-        response = await trade.run()
-        await message.channel.send(response)
+        # response = await trade.run()
+        await message.channel.send('Wait to be amazed')
 
 
 @client.event
@@ -43,4 +44,4 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-client.run(TOKEN)
+client.run(os.environ.get('TOKEN'))
