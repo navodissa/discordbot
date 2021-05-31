@@ -3,7 +3,7 @@ import random
 import time
 import asyncio
 import os
-import brokerage.trade.app as trade
+#import brokerage.trade.app as trade
 
 TOKEN = ''
 
@@ -44,4 +44,5 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-client.run(os.environ.get('TOKEN'))
+# client.run('')
+client.run(os.getenv('TOKEN'))
