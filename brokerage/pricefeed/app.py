@@ -3,46 +3,303 @@
 import asyncio
 import websockets
 import time
+import test
 
 
-async def hello():
-    #uri = "wss://m-sl-trade-universal.directfn.com/smbws"
-    uri = "wss://lkcentralprice.directfn.com/price"
-    async with websockets.connect(uri, ping_interval=None) as websocket:
-        auth_req = '115{"AUTHVER":"10","LOGINIP":"","CLVER":"1.0.0","PDM":"56","LAN":"EN","METAVER":"0","SSOTOK":"DEMO1UNI","SSOTYPE":"2"}'
-        await websocket.send(auth_req)
-        response = await websocket.recv()
-        print(f"< {response}")
+class Application():
 
-        init_req = ['22{"40":"7","E":"LKCSE"}',
-                    '33{"80":"17","E":"LKCSE","S":"ASI"}',
-                    '51{"40":"64","E":"LKCSE","TT":"1","MKT":"N","L":"EN"}',
-                    '51{"40":"64","E":"LKCSE","TT":"3","MKT":"N","L":"EN"}',
-                    '51{"40":"64","E":"LKCSE","TT":"4","MKT":"N","L":"EN"}',
-                    '32{"81":"17","E":"LKCSE","S":"ASI"}',
-                    '33{"80":"17","E":"LKCSE","S":"ASI"}',
-                    '23{"40":"32","E":"LKCSE"}',
-                    '32{"81":"7","E":"LKCSE","S":"ASI"}',
-                    '40{"80":"0","E":"LKCSE","S":"AAF.N0000`N"}',
-                    '40{"80":"0","E":"LKCSE","S":"AAF.R0000`N"}',
-                    '41{"80":"0","E":"LKCSE","S":"AAIC.N0000`N"}',
-                    '41{"80":"0","E":"LKCSE","S":"AAIC.R0000`N"}',
-                    '41{"80":"0","E":"LKCSE","S":"ABAN.N0000`N"}',
-                    '41{"80":"0","E":"LKCSE","S":"TKYO.N0000`N"}']
+    requs = ''
 
-        for req in range(0, len(init_req)):
-            await websocket.send(init_req[req])
+    def setRequest(self, req):
+        self.requs = req
+
+    async def hello(self):
+        #uri = "wss://m-sl-trade-universal.directfn.com/smbws"
+        uri = "wss://lkcentralprice.directfn.com/price"
+        async with websockets.connect(uri, ping_interval=None) as websocket:
+            auth_req = '115{"AUTHVER":"10","LOGINIP":"","CLVER":"1.0.0","PDM":"56","LAN":"EN","METAVER":"0","SSOTOK":"DEMO1UNI","SSOTYPE":"2"}'
+            await websocket.send(auth_req)
             response = await websocket.recv()
             print(f"< {response}")
-            time.sleep(0.5)
 
-        while True:
-            new_req = input("Input:")
+            init_req = ['22{"40":"7","E":"LKCSE"}',
+                        '33{"80":"17","E":"LKCSE","S":"ASI"}',
+                        '51{"40":"64","E":"LKCSE","TT":"1","MKT":"N","L":"EN"}',
+                        '51{"40":"64","E":"LKCSE","TT":"3","MKT":"N","L":"EN"}',
+                        '51{"40":"64","E":"LKCSE","TT":"4","MKT":"N","L":"EN"}',
+                        '32{"81":"17","E":"LKCSE","S":"ASI"}',
+                        '32{"80":"17","E":"LKCSE","S":"ASI"}',
+                        '23{"40":"32","E":"LKCSE"}',
+                        '32{"81":"7","E":"LKCSE","S":"ASI"}',
+                        "41{'80':'0','E':'LKCSE','S':'ABAN.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'AEL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'ACL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'APLA.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ACME.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'AGAL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'AGST.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'AHUN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SPEN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ALLI.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ALUM.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'ABL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'ATL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ATLL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CONN.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'TAP.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'GREG.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ALHP.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'AINS.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'AAF.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ACAP.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ASIY.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'AMSL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ASIR.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'AMF.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'BPPL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'BFL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'BALA.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'BERU.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'BLUE.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'BLUE.X0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'BOPL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'BRWN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'BIL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'BUKI.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'COLO.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CTHR.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CTLD.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CWM.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CARG.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CABO.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CARS.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CFIN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CIND.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CCS.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'GRAN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'GUAR.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CHL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CINV.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CTBL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CTC.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CHMX.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LLUB.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CWL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CIC.X0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CIC.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CDB.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CDB.X0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'REEF.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CLND.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'COMB.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'COMB.X0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'COCR.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'COMD.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CLC.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'SOY.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'DPL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'DFCC.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'DIAL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'DIMO.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'DIPD.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'DIST.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'STAF.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'EBCR.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'ECL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'EAST.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'EMER.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'EDEN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ELPL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ETWO.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'EXPO.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CFVF.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'GHLL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'GOOD.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'WAPO.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'HNB.X0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'HNB.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'HPL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HAYC.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'MGT.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HEXP.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HAYL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'HHL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CITH.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HASU.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HNBF.X0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HNBF.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HOPL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HDFC.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HUNT.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'HVA.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'INDO.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ASPH.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'JINS.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'JKH.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'KHL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'JKL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'KAHA.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'KFP.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'KGAL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'KCAB.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'TYRE.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'KVAL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'KOTA.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LAMB.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LFIN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LPRT.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LALU.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ASHO.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CERA.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LIOC.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'LMF.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'TILE.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LVEN.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'LWL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LCEY.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LDEV.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'LGL.X0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'LGL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'LPL.X0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'LPL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LITE.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SHAW.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LOFC.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LOLC.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HPFL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LVEF.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'MEL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'MADU.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'MCPL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'MAL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'MAL.X0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'MASK.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'MELS.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'MBSL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'MHDL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'MULL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'MFL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'NAMU.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CSF.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'NDB.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'NTB.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'NHL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'NEST.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ODEL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'BFN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'OSEA.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'PABC.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'PAP.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'PEG.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'PINS.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'PLC.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'PMB.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'GLAS.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'GSF.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CARE.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'RIL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'RWSL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'RFL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'REG.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'RAL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'KZOO.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'COCO.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'RHL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'RHL.X0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'HPWR.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'RICH.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'REXP.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'RCL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SAMP.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'SIL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'SDB.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SMOT.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SELI.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'IDL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SEYB.X0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SEYB.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CSD.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SHAL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SIRA.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SIGV.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SINS.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SFIN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SINI.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SINH.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'SFL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SEMB.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SEMB.X0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SCAP.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'CRL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'SHL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'AAIC.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SLTL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'SUN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'PARQ.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'TAJ.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'TPL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'TANG.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'TSML.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'TJL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CFLB.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'RHTL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'KHC.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'SERV.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'LHCL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'LHL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'TAFL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'TKYO.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'TKYO.X0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'TRAN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'UDPL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'UAL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'UBC.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'ALUF.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'UML.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'VFIN.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'VONE.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'VPEL.N0000`N'}",
+                        "40{'80':'0','E':'LKCSE','S':'VLL.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'CITW.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'WATA.N0000`N'}",
+                        "41{'80':'0','E':'LKCSE','S':'WIND.N0000`N'}",
+                        '51{"40":"64","E":"LKCSE","TT":"1","MKT":"N","L":"EN"}',
+                        '51{"40":"64","E":"LKCSE","TT":"3","MKT":"N","L":"EN"}',
+                        '51{"40":"64","E":"LKCSE","TT":"4","MKT":"N","L":"EN"}',
+                        '32{"81":"7","E":"LKCSE","S":"ASI"}',
+                        '32{"40":"27","E":"LKCSE","L":"EN"}',
+                        '38{"40":"77","E":"MUBASHER.LK","L":"EN"}']
 
-            await websocket.send(new_req)
-            print(f"> {new_req}")
+            for req in range(0, len(init_req)):
+                await websocket.send(init_req[req])
+                print(init_req[req])
+                # response = await websocket.recv()
+                #print(f"< {response}")
 
-            greeting = await websocket.recv()
-            print(f"< {greeting}")
+            while True:
+                # new_req = input("Input:")
 
-asyncio.get_event_loop().run_until_complete(hello())
+                # await websocket.send(new_req)
+                # print(f"> {new_req}")
+                # for req in range(0, len(init_req)):
+                #     await websocket.send(init_req[req])
+                #     print(init_req[req])
+                #     response = await websocket.recv()
+                #     print(f"< {response}")
+
+                # if test.Test().getValue() == 0:
+                #     pass
+                # else:
+                #     await websocket.send(test.Test().getValue())
+
+                if self.requs == '':
+                    pass
+                else:
+                    await websocket.send(self.requs)
+                    print(self.requs)
+                    self.requs = ''
+
+                greeting = await websocket.recv()
+                print(f"< {greeting}")
+
+    #asyncio.get_event_loop().run_until_complete(hello())
